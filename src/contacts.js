@@ -4,23 +4,32 @@ const path = require('path');
 const contactsPath = path.join(__dirname, 'db/contacts.json');
 const read = fs.readFile(contactsPath).then(data => JSON.parse(data));
 
-console.log(contactsPath);
-
-// TODO: document each function
+//print a table of contacts excluding the id number
 async function listContacts() {
     const data = await read;
-    console.table(data);
+    const filteredContact = data.map(item => {
+        const { id, ...newData } = item;
+        return newData;
+    })
+    console.table(filteredContact);
 };
 
-function getContactById() {
-  console.log("getContacts");
+// print a table of a single contact based on id number
+async function getContactById(contactId) {
+    const data = await read;
+    const singleContact = data.find(item => item.id === contactId);
+    if (singleContact) {
+        console.table(singleContact);
+    } else {
+        console.log('sorry, there is no user with that id \n');
+    };
 };
 
-function removeContact() {
+async function removeContact(contactId) {
   console.log("removeContacts");
 };
 
-function addContact() {
+async function addContact(name, email, phone) {
   console.log("addContacts");
 };
 
