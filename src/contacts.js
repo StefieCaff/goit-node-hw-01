@@ -26,7 +26,10 @@ async function getContactById(contactId) {
 };
 
 async function removeContact(contactId) {
-  console.log("removeContacts");
+    const data = await read;
+    const newContacts = data.filter(item => item.id !== contactId);
+    fs.writeFile('contacts.json', JSON.stringify(newContacts));
+    console.log('Contact successfully deleted');
 };
 
 async function addContact(name, email, phone) {
