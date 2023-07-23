@@ -1,3 +1,5 @@
+const nanoidId = require('nanoid');
+
 const fs = require('fs').promises;
 const path = require('path');
 
@@ -39,9 +41,10 @@ async function addContact(name, email, phone) {
     data.push({
         name: name,
         email: email,
-        phone: phone
+        phone: phone,
+        id: nanoidId.nanoid(21).toString()
     })
-    console.log(data);
+    console.table(data);
     fs.writeFile('./db/contacts.json', JSON.stringify(data))
     console.log('Woot! Your contact has been added.');
         
