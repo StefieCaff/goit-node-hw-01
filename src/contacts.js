@@ -35,7 +35,16 @@ async function removeContact(contactId) {
 };
 
 async function addContact(name, email, phone) {
-  console.log("addContacts");
+    const data = await read;
+    data.push({
+        name: name,
+        email: email,
+        phone: phone
+    })
+    console.log(data);
+    fs.writeFile('./db/contacts.json', JSON.stringify(data))
+    console.log('Woot! Your contact has been added.');
+        
 };
 
 module.exports = { listContacts, getContactById, removeContact, addContact };
